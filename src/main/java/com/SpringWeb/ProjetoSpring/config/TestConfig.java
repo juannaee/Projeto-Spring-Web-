@@ -12,23 +12,22 @@ import com.SpringWeb.ProjetoSpring.services.UserService;
 @Profile("test")
 public class TestConfig {
 
-    @Bean
-    CommandLineRunner run(UserService userService) {
+	@Bean
+	CommandLineRunner run(UserService userService) {
 		return args -> {
 			// Teste para o UserRepository
 			User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 			User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "abcdef");
 			User u3 = new User(null, "teste de insertUser", "teste@testeinsert", "testeinsert", "testeinserteste");
-			User u4 = new User(null, "teste de criptografia", "teste@testecriptografia", "testecriptografia", "testecriptografia");
+			User u4 = new User(null, "teste de criptografia", "teste@testecriptografia", "testecriptografia",
+					"testecriptografia");
 
 			userService.insertUser(u1);
 			userService.insertUser(u2);
 			userService.insertUser(u3);
-			
-			
+			userService.insertUser(u4);
 
 		};
-		
 
 	}
 

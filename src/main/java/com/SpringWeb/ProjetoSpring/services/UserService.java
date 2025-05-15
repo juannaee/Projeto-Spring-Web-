@@ -1,8 +1,12 @@
 package com.SpringWeb.ProjetoSpring.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +14,7 @@ import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
@@ -40,6 +44,17 @@ public class UserService {
 		System.out.println("teste de criptografar senhas passou");
 
 		return userRepository.save(user);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<User> user = userRepository.findByEmail(username);
+		if (user.isEmpty()) {
+			throw new UsernameNotFoundException("Usuário não encontrado com email: " + username);
+		}
+
+		return org.springframework.security.core.userdetails.User.builder().username(user.get().getEmail())
+				.password(user.get().getPassword()).roles("USER").build();
 	}
 
 }
