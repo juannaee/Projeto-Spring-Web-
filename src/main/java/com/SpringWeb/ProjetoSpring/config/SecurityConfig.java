@@ -1,14 +1,16 @@
 package com.SpringWeb.ProjetoSpring.config;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.security.config.Customizer.withDefaults;
 
 import com.SpringWeb.ProjetoSpring.services.UserService;
 
@@ -23,8 +25,6 @@ public class SecurityConfig {
 		this.userService = userService;
 	}
 
-	
-
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -38,14 +38,20 @@ public class SecurityConfig {
 		return config.getAuthenticationManager();
 	}
 
+	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		// desativa proteção CSRF (só em testes/dev — cuidado em produção
-		http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/public/**").permitAll().anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").permitAll()).httpBasic(withDefaults());
-		return http.build();
+		http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**").disable())
+			.headers(headers -> headers.disable()) // permite uso de frames
+			.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/h2-console/**", "/login", "/public/**").permitAll()
+				.requestMatchers(HttpMethod.POST, "/users").permitAll()
+				.requestMatchers(HttpMethod.GET, "/users").permitAll()
+				.anyRequest().authenticated()
+			)
+			.formLogin(form -> form.loginPage("/login").permitAll())
+			.httpBasic(withDefaults());
 
+		return http.build();
 	}
 
 }
