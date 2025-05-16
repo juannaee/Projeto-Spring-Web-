@@ -41,10 +41,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**").disable())
-			.headers(headers -> headers.disable()) // permite uso de frames
+			.headers(headers -> headers.disable()) 
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/h2-console/**", "/login", "/public/**").permitAll()
-				.requestMatchers(HttpMethod.POST, "/users").permitAll()
+				.requestMatchers(HttpMethod.POST, "/users","/users/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/users").permitAll()
 				.anyRequest().authenticated()
 			)

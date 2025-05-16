@@ -21,11 +21,13 @@ public class TestConfig {
 			User u3 = new User(null, "teste de insertUser", "teste@testeinsert", "testeinsert", "testeinserteste");
 			User u4 = new User(null, "teste de criptografia", "teste@testecriptografia", "testecriptografia",
 					"testecriptografia");
+			User u5 = new User(null, "Juan Guilherme", "juang@", "81996272911", "2711");
 
 			userService.insertUser(u1);
 			userService.insertUser(u2);
 			userService.insertUser(u3);
 			userService.insertUser(u4);
+			userService.insertUser(u5);
 
 		};
 
