@@ -42,12 +42,9 @@ public class UserResource {
 	@PostMapping
 	public ResponseEntity<User> insertUser(@RequestBody User user) {
 
-		try {
-			User createdUser = userService.insertUser(user);
-			return ResponseEntity.ok(createdUser);
-		} catch (DataIntegrityViolationException e) {
-			return ResponseEntity.badRequest().build();
-		}
+		User createdUser = userService.insertUser(user);
+		return ResponseEntity.ok(createdUser);
+
 	}
 
 }
