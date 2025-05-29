@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.SpringWeb.ProjetoSpring.entities.User;
+import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
 
 @Service
@@ -29,6 +30,11 @@ public class UserService implements UserDetailsService {
 		return userRepository.findAll();
 	}
 
+	public User findById(Long id) {
+		return userRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado."));
+	}
+
 	public User insertUser(User user) {
 		// teste de regra para verificar se email existe
 		boolean emailExists = userRepository.findAll().stream()
@@ -44,10 +50,6 @@ public class UserService implements UserDetailsService {
 		System.out.println("teste de criptografar senhas passou");
 
 		return userRepository.save(user);
-	}
-
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
 	}
 
 	@Override

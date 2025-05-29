@@ -2,8 +2,6 @@ package com.SpringWeb.ProjetoSpring.resources;
 
 import java.util.List;
 
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,15 +31,15 @@ public class UserResource {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable Long id) {
-		return userService.findById(id).<ResponseEntity<?>>map(user -> ResponseEntity.ok(user)).orElseGet(
-				() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário com ID " + id + " Não encontrado."));
-
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+		User user = userService.findById(id);
+		return ResponseEntity.ok(user);
+		
+		
 	}
 
 	@PostMapping
 	public ResponseEntity<User> insertUser(@RequestBody User user) {
-
 		User createdUser = userService.insertUser(user);
 		return ResponseEntity.ok(createdUser);
 

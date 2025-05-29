@@ -12,14 +12,21 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
 public class ResourceExceptionHandler {
-	
+
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<StandardError> handleDataIntegrity(DataIntegrityViolationException e, HttpServletRequest request) {
-		StandardError err = new StandardError(Instant.now(), HttpStatus.BAD_REQUEST.value(), "Violação de integridade", e.getMessage(), request.getRequestURI());
+	public ResponseEntity<StandardError> handleDataIntegrity(DataIntegrityViolationException e,
+			HttpServletRequest request) {
+		StandardError err = new StandardError(Instant.now(), HttpStatus.BAD_REQUEST.value(), "Violação de integridade",
+				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
-	
-	
-	
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<StandardError> handleResourceNotFound(ResourceNotFoundException e,
+			HttpServletRequest request) {
+		StandardError err = new StandardError(Instant.now(), HttpStatus.BAD_REQUEST.value(), "Recurso não encontrado",
+				e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
 
 }
