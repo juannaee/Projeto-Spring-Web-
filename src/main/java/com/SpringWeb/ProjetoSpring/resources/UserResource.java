@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.services.UserService;
 
@@ -34,14 +35,21 @@ public class UserResource {
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		User user = userService.findById(id);
 		return ResponseEntity.ok(user);
-		
-		
+
 	}
 
 	@PostMapping
 	public ResponseEntity<User> insertUser(@RequestBody User user) {
 		User createdUser = userService.insertUser(user);
 		return ResponseEntity.ok(createdUser);
+
+	}
+
+	@PostMapping("/batch")
+	public ResponseEntity<BatchUserInsertResponse> insertUsersBatch(@RequestBody List<User> users) {
+
+		BatchUserInsertResponse response = userService.insertUsersBatch(users);
+		return ResponseEntity.ok(response);
 
 	}
 

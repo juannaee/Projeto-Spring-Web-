@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
@@ -50,6 +51,27 @@ public class UserService implements UserDetailsService {
 		System.out.println("teste de criptografar senhas passou");
 
 		return userRepository.save(user);
+	}
+
+	public BatchUserInsertResponse insertUsersBatch(List<User> users) {
+
+		BatchUserInsertResponse response = new BatchUserInsertResponse();
+
+		for (User user : users) {
+
+			try {
+				User created = insertUser(user);
+				response.addInsertedUser(created);
+			} catch (DataIntegrityViolationException e) {
+				response.addFailedUser("Email já cadastrado:" + user.getEmail());
+			} catch (Exception e) {
+				response.addFailedUser("Erro ao cadastrar " + user.getEmail() + ": " + e.getMessage());
+			}
+
+		}
+
+		return response;
+
 	}
 
 	@Override
