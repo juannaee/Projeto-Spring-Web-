@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
+import com.SpringWeb.ProjetoSpring.dto.UserDTO;
+import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.services.UserService;
 
@@ -39,16 +41,17 @@ public class UserResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<User> insertUser(@RequestBody User user) {
+	public ResponseEntity<UserDTO> insertUser(@RequestBody UserInsertDTO userInsertDTO) {
+		User user = userService.fromDTO(userInsertDTO);
 		User createdUser = userService.insertUser(user);
-		return ResponseEntity.ok(createdUser);
+		UserDTO response = userService.toDTO(createdUser);
+		return ResponseEntity.ok(response);
 
 	}
 
 	@PostMapping("/batch")
-	public ResponseEntity<BatchUserInsertResponse> insertUsersBatch(@RequestBody List<User> users) {
-
-		BatchUserInsertResponse response = userService.insertUsersBatch(users);
+	public ResponseEntity<BatchUserInsertResponse> insertUsersBatch(@RequestBody List<UserInsertDTO> usersInsertDTO) {
+		BatchUserInsertResponse response = userService.insertUsersBatch(usersInsertDTO);
 		return ResponseEntity.ok(response);
 
 	}

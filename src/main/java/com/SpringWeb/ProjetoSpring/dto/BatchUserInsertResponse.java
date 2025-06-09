@@ -3,19 +3,18 @@ package com.SpringWeb.ProjetoSpring.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.SpringWeb.ProjetoSpring.entities.User;
 
 public class BatchUserInsertResponse {
 
-	private List<User> insertedUsers = new ArrayList<>();
+	private List<UserDTO> insertedUsers = new ArrayList<>();
 	private List<String> failedUsers = new ArrayList<>();
 
-	public List<User> getInsertedUsers() {
+	public List<UserDTO> getInsertedUsers() {
 		return insertedUsers;
 
 	}
 
-	public void setInsertedUsers(List<User> insertedUsers) {
+	public void setInsertedUsers(List<UserDTO> insertedUsers) {
 		this.insertedUsers = insertedUsers;
 
 	}
@@ -28,7 +27,7 @@ public class BatchUserInsertResponse {
 		this.failedUsers = failedUser;
 	}
 
-	public void addInsertedUser(User user) {
+	public void addInsertedUser(UserDTO user) {
 		this.insertedUsers.add(user);
 
 	}

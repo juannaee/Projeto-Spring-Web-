@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
+import com.SpringWeb.ProjetoSpring.dto.UserDTO;
+import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
@@ -37,7 +39,6 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User insertUser(User user) {
-		// teste de regra para verificar se email existe
 		boolean emailExists = userRepository.findAll().stream()
 				.anyMatch(u -> u.getEmail().equalsIgnoreCase(user.getEmail()));
 
@@ -45,32 +46,46 @@ public class UserService implements UserDetailsService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado: " + user.getEmail());
 		}
 
-		// teste de criptografia de senhas
+		// criptografia de senhas
 		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
-		System.out.println("teste de criptografar senhas passou");
+		
 
 		return userRepository.save(user);
 	}
 
-	public BatchUserInsertResponse insertUsersBatch(List<User> users) {
+	// Insere uma lista de usuarios enviadas pelo cliente.
+	public BatchUserInsertResponse insertUsersBatch(List<UserInsertDTO> usersDTOs) {
 
 		BatchUserInsertResponse response = new BatchUserInsertResponse();
 
-		for (User user : users) {
+		for (UserInsertDTO dto : usersDTOs) {
 
 			try {
+
+				User user = fromDTO(dto);
 				User created = insertUser(user);
-				response.addInsertedUser(created);
+				response.addInsertedUser(toDTO(created));
 			} catch (DataIntegrityViolationException e) {
-				response.addFailedUser("Email já cadastrado:" + user.getEmail());
+				response.addFailedUser("Email já cadastrado:" + dto.getEmail());
 			} catch (Exception e) {
-				response.addFailedUser("Erro ao cadastrar " + user.getEmail() + ": " + e.getMessage());
+				response.addFailedUser("Erro ao cadastrar " + dto.getEmail() + ": " + e.getMessage());
 			}
 
 		}
 
 		return response;
+	}
+
+	// Converte o que o cliente enviou (DTO) para a entidade que o banco entende.
+	public User fromDTO(UserInsertDTO dto) {
+		return new User(null, dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword());
+
+	}
+
+	// Converte o User para o DTO de saída (UserDTO)
+	public UserDTO toDTO(User user) {
+		return new UserDTO(user.getId(), user.getName(), user.getEmail());
 	}
 
 	@Override
