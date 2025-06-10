@@ -1,16 +1,16 @@
 package com.SpringWeb.ProjetoSpring.config;
 
-import java.time.Instant;
+//import java.time.Instant;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.SpringWeb.ProjetoSpring.entities.Order;
-import com.SpringWeb.ProjetoSpring.services.OrderService;
+//import com.SpringWeb.ProjetoSpring.entities.Order;
+//import com.SpringWeb.ProjetoSpring.services.OrderService;
 //import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.services.UserService;
 
@@ -20,8 +20,8 @@ public class TestConfig {
 
 	// @Autowired
 	// UserService userService;
-	@Autowired
-	OrderService orderService;
+	// @Autowired
+	// OrderService orderService;
 
 	@Bean
 	CommandLineRunner run(UserService userService) {
@@ -31,11 +31,15 @@ public class TestConfig {
 
 			// userService.insertUser(user);
 
-			Order order = new Order(null, Instant.now());
+			// Order order = new Order(null, Instant.now());
 
-			orderService.insertOrder(order);
+			 // orderService.insertOrder(order);
 		};
 
 	}
+	
+	
+	
+	
 
 }
