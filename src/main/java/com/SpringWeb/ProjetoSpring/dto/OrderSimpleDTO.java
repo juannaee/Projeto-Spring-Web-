@@ -4,31 +4,19 @@ import java.time.Instant;
 
 import com.SpringWeb.ProjetoSpring.entities.Order;
 
-public class OrderDTO {
+public class OrderSimpleDTO {
 
 	private Long id;
 	private Instant moment;
-	private UserSimpleDTO user;
 
-	public OrderDTO() {
+	public OrderSimpleDTO() {
 
 	}
 
-	public OrderDTO(Order entity) {
+	public OrderSimpleDTO(Order entity) {
 		this.id = entity.getId();
 		this.moment = entity.getMoment();
-		if (entity.getUser() != null) {
-			this.user = new UserSimpleDTO(entity.getUser());
-		}
 
-	}
-
-	public UserSimpleDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserSimpleDTO user) {
-		this.user = user;
 	}
 
 	public Long getId() {
@@ -46,5 +34,4 @@ public class OrderDTO {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-
 }

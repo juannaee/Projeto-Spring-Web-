@@ -1,40 +1,22 @@
 package com.SpringWeb.ProjetoSpring.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.SpringWeb.ProjetoSpring.entities.User;
 
-public class UserDTO {
+public class UserSimpleDTO {
 
 	private Long id;
 	private String name;
 	private String email;
-	private List<OrderSimpleDTO> orders;
 
-	public UserDTO() {
+	public UserSimpleDTO() {
 
 	}
 
-	public UserDTO(Long id, String name, String email, List<OrderSimpleDTO> orders) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.orders = orders;
-	}
-
-	public UserDTO(User entity) {
+	public UserSimpleDTO(User entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.email = entity.getEmail();
-		if (entity.getOrders() != null) {
-			this.orders = entity.getOrders().stream().map(OrderSimpleDTO::new).collect(Collectors.toList());
-		}
 
-	}
-
-	public List<OrderSimpleDTO> getOrders() {
-		return orders;
 	}
 
 	public Long getId() {
