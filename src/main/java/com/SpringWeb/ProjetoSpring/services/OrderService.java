@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.SpringWeb.ProjetoSpring.dto.OrderDTO;
+
 import com.SpringWeb.ProjetoSpring.dto.OrderInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.User;
@@ -59,9 +59,6 @@ public class OrderService {
 
 	}
 
-	// Converte o User para o DTO de saída (UserDTO)
-	public OrderDTO toDTO(Order order) {
-		return new OrderDTO(order.getId(), order.getMoment(), order.getUser());
-	}
+
 
 }

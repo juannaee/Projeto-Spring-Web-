@@ -1,11 +1,18 @@
 package com.SpringWeb.ProjetoSpring.dto;
 
+import java.util.List;
+
 public class UserInsertDTO {
 
 	private String name;
 	private String email;
 	private String phone;
 	private String password;
+	private List<OrderInsertDTO> orders;
+
+	public List<OrderInsertDTO> getOrders() {
+		return orders;
+	}
 
 	public String getName() {
 		return name;

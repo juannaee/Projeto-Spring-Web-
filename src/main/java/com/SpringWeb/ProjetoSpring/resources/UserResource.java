@@ -28,15 +28,16 @@ public class UserResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserDTO>> findAll() {
 		List<User> users = userService.findAll();
-		return ResponseEntity.ok(users);
+		List<UserDTO> usersDTO = users.stream().map(UserDTO::new).toList();
+		return ResponseEntity.ok(usersDTO);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
+	public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
 		User user = userService.findById(id);
-		return ResponseEntity.ok(user);
+		return ResponseEntity.ok(new UserDTO(user));
 
 	}
 
@@ -44,8 +45,7 @@ public class UserResource {
 	public ResponseEntity<UserDTO> insertUser(@RequestBody UserInsertDTO userInsertDTO) {
 		User user = userService.fromDTO(userInsertDTO);
 		User createdUser = userService.insertUser(user);
-		UserDTO response = userService.toDTO(createdUser);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(new UserDTO(createdUser));
 
 	}
 

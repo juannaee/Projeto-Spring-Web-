@@ -27,16 +27,17 @@ public class OrderResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Order>> findAll() {
+	public ResponseEntity<List<OrderDTO>> findAll() {
 		List<Order> orders = orderService.findAll();
-		return ResponseEntity.ok(orders);
+		List<OrderDTO> ordersDTO = orders.stream().map(OrderDTO::new).toList();
+		return ResponseEntity.ok(ordersDTO);
 
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Order> findById(@PathVariable Long id) {
+	public ResponseEntity<OrderDTO> findById(@PathVariable Long id) {
 		Order order = orderService.findById(id);
-		return ResponseEntity.ok(order);
+		return ResponseEntity.ok(new OrderDTO(order));
 	}
 
 	@PostMapping
@@ -44,8 +45,7 @@ public class OrderResource {
 
 		Order order = orderService.fromDTO(orderInsertDTO);
 		Order createdOrder = orderService.insertOrder(order);
-		OrderDTO response = orderService.toDTO(createdOrder);
-		return ResponseEntity.ok(response);
+		return ResponseEntity.ok(new OrderDTO(createdOrder));
 
 	}
 

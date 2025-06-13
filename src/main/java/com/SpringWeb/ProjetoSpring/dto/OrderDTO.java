@@ -2,6 +2,7 @@ package com.SpringWeb.ProjetoSpring.dto;
 
 import java.time.Instant;
 
+import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.User;
 
 public class OrderDTO {
@@ -19,6 +20,12 @@ public class OrderDTO {
 		this.moment = moment;
 		this.user = user;
 
+	}
+
+	public OrderDTO(Order entity) {
+		this.id = entity.getId();
+		this.moment = entity.getMoment();
+		this.user = entity.getUser();
 	}
 
 	public User getUser() {

@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
 import com.SpringWeb.ProjetoSpring.dto.UserDTO;
 import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
+import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
-
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
 
 @Service
@@ -66,7 +66,7 @@ public class UserService implements UserDetailsService {
 
 				User user = fromDTO(dto);
 				User created = insertUser(user);
-				response.addInsertedUser(toDTO(created));
+				response.addInsertedUser(new UserDTO(created));
 			} catch (DataIntegrityViolationException e) {
 				response.addFailedUser("Email já cadastrado:" + dto.getEmail());
 			} catch (Exception e) {
@@ -80,13 +80,17 @@ public class UserService implements UserDetailsService {
 
 	// Converte o que o cliente enviou (DTO) para a entidade que o banco entende.
 	public User fromDTO(UserInsertDTO dto) {
-		return new User(null, dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword());
+		User user = new User(null, dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword());
+		if (dto.getOrders() != null) {
+			dto.getOrders().forEach(orderDto -> {
+				Order order = new Order(null, orderDto.getMoment(), user);
+				user.getOrders().add(order);
+			});
 
-	}
+		}
 
-	// Converte o User para o DTO de saída (UserDTO)
-	public UserDTO toDTO(User user) {
-		return new UserDTO(user.getId(), user.getName(), user.getEmail());
+		return user;
+
 	}
 
 	@Override

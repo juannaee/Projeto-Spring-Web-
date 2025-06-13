@@ -14,13 +14,6 @@ public class OrderInsertDTO {
 
 	}
 
-	public OrderInsertDTO(Long id, Instant moment, User user) {
-		this.id = id;
-		this.moment = moment;
-		this.user = user;
-
-	}
-
 	public User getUser() {
 		return user;
 	}
