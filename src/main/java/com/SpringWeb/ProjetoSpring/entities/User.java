@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +31,20 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 
-	@OneToMany(mappedBy = "user")
+	/**
+	 * Explicações: cascade = CascadeType.ALL: garante que ao salvar/editar/deletar
+	 * um User, os Orders sejam impactados automaticamente.
+	 * 
+	 * orphanRemoval = true: se você remover um Order da lista e salvar o User, o
+	 * JPA deletará esse Order.
+	 * 
+	 * @JsonManagedReference: evita loop infinito na serialização JSON com o Jackson
+	 *                        (lado "pai").
+	 * 
+	 * 
+	 */
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<Order> orders = new ArrayList<>();
 
 	public User() {

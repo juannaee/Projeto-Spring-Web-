@@ -15,6 +15,7 @@ import com.SpringWeb.ProjetoSpring.dto.UserDTO;
 import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
+
 import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
 
 @Service
@@ -27,6 +28,7 @@ public class UserService implements UserDetailsService {
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
+
 	}
 
 	public List<User> findAll() {
@@ -49,7 +51,6 @@ public class UserService implements UserDetailsService {
 		// criptografia de senhas
 		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
-		
 
 		return userRepository.save(user);
 	}

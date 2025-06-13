@@ -7,16 +7,22 @@ import org.springframework.stereotype.Service;
 import com.SpringWeb.ProjetoSpring.dto.OrderDTO;
 import com.SpringWeb.ProjetoSpring.dto.OrderInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
+import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;
 import com.SpringWeb.ProjetoSpring.repositories.OrderRepository;
+import com.SpringWeb.ProjetoSpring.repositories.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrderService {
 
 	private final OrderRepository orderRepository;
+	private final UserRepository userRepository;
 
-	public OrderService(OrderRepository orderRepository) {
+	public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
 		this.orderRepository = orderRepository;
+		this.userRepository = userRepository;
 	}
 
 	public List<Order> findAll() {
@@ -32,6 +38,21 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 
+	// Vincula um user a uma ordem
+
+	@Transactional
+	public void assignUserToOrder(Long orderId, Long userId) {
+		Order order = orderRepository.findById(orderId)
+				.orElseThrow(() -> new ResourceNotFoundException("Ordem não encontrada"));
+
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+
+		order.setUser(user);
+		orderRepository.save(order);
+
+	}
+
 	// Converte o que o cliente enviou (DTO) para a entidade que o banco entende.
 	public Order fromDTO(OrderInsertDTO dto) {
 		return new Order(null, dto.getMoment(), dto.getUser());
@@ -40,7 +61,7 @@ public class OrderService {
 
 	// Converte o User para o DTO de saída (UserDTO)
 	public OrderDTO toDTO(Order order) {
-		return new OrderDTO(order.getId(), order.getMoment(),order.getUser());
+		return new OrderDTO(order.getId(), order.getMoment(), order.getUser());
 	}
 
 }
