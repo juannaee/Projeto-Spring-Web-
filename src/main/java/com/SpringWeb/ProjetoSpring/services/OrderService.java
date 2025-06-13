@@ -34,13 +34,13 @@ public class OrderService {
 
 	// Converte o que o cliente enviou (DTO) para a entidade que o banco entende.
 	public Order fromDTO(OrderInsertDTO dto) {
-		return new Order(null, dto.getMoment());
+		return new Order(null, dto.getMoment(), dto.getUser());
 
 	}
 
 	// Converte o User para o DTO de saída (UserDTO)
 	public OrderDTO toDTO(Order order) {
-		return new OrderDTO(order.getId(), order.getMoment());
+		return new OrderDTO(order.getId(), order.getMoment(),order.getUser());
 	}
 
 }
