@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-
-import com.SpringWeb.ProjetoSpring.dto.OrderInsertDTO;
+import com.SpringWeb.ProjetoSpring.dto.order.OrderInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;

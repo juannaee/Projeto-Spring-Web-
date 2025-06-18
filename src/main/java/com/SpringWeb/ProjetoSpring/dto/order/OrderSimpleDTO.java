@@ -1,25 +1,22 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.order;
 
 import java.time.Instant;
 
-import com.SpringWeb.ProjetoSpring.entities.User;
+import com.SpringWeb.ProjetoSpring.entities.Order;
 
-public class OrderInsertDTO {
+public class OrderSimpleDTO {
 
 	private Long id;
 	private Instant moment;
-	private User user;
 
-	public OrderInsertDTO() {
+	public OrderSimpleDTO() {
 
 	}
 
-	public User getUser() {
-		return user;
-	}
+	public OrderSimpleDTO(Order entity) {
+		this.id = entity.getId();
+		this.moment = entity.getMoment();
 
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Long getId() {
@@ -37,5 +34,4 @@ public class OrderInsertDTO {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
-
 }

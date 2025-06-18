@@ -1,4 +1,4 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.user;
 
 import com.SpringWeb.ProjetoSpring.entities.User;
 

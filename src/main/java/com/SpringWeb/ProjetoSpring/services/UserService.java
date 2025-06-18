@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
-import com.SpringWeb.ProjetoSpring.dto.UserDTO;
-import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
+import com.SpringWeb.ProjetoSpring.dto.user.BatchUserInsertResponse;
+import com.SpringWeb.ProjetoSpring.dto.user.UserDTO;
+import com.SpringWeb.ProjetoSpring.dto.user.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.exceptions.ResourceNotFoundException;

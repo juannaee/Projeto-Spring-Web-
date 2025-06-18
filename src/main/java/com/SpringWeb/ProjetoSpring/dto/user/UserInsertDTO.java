@@ -1,6 +1,8 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.user;
 
 import java.util.List;
+
+import com.SpringWeb.ProjetoSpring.dto.order.OrderInsertDTO;
 
 public class UserInsertDTO {
 

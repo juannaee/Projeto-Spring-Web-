@@ -1,8 +1,9 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.user;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.SpringWeb.ProjetoSpring.dto.order.OrderSimpleDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 
 public class UserDTO {

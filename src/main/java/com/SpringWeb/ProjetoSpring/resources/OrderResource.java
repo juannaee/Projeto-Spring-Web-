@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringWeb.ProjetoSpring.dto.OrderDTO;
-import com.SpringWeb.ProjetoSpring.dto.OrderInsertDTO;
+import com.SpringWeb.ProjetoSpring.dto.order.OrderDTO;
+import com.SpringWeb.ProjetoSpring.dto.order.OrderInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.services.OrderService;
 

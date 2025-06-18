@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringWeb.ProjetoSpring.dto.BatchUserInsertResponse;
-import com.SpringWeb.ProjetoSpring.dto.UserDTO;
-import com.SpringWeb.ProjetoSpring.dto.UserInsertDTO;
+import com.SpringWeb.ProjetoSpring.dto.user.BatchUserInsertResponse;
+import com.SpringWeb.ProjetoSpring.dto.user.UserDTO;
+import com.SpringWeb.ProjetoSpring.dto.user.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.services.UserService;
 

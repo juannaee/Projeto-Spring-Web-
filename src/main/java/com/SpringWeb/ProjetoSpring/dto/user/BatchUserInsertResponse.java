@@ -1,4 +1,4 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.user;
 
 import java.util.ArrayList;
 import java.util.List;

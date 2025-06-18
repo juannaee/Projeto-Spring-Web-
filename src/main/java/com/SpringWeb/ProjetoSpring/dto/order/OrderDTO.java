@@ -1,7 +1,8 @@
-package com.SpringWeb.ProjetoSpring.dto;
+package com.SpringWeb.ProjetoSpring.dto.order;
 
 import java.time.Instant;
 
+import com.SpringWeb.ProjetoSpring.dto.user.UserSimpleDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 
 public class OrderDTO {
