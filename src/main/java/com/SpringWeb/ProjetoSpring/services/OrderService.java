@@ -54,10 +54,23 @@ public class OrderService {
 
 	// Converte o que o cliente enviou (DTO) para a entidade que o banco entende.
 	public Order fromDTO(OrderInsertDTO dto) {
-		return new Order(null, dto.getMoment(), dto.getUser());
+		User user;
+
+		if (dto.getUser() == null) {
+			user = userRepository.findById(999L)
+					.orElseThrow(() -> new ResourceNotFoundException("Usuário genérico não encontrado"));
+		} else {
+			user = userRepository.findById(dto.getUser().getId())
+					.orElseThrow(() -> new ResourceNotFoundException("Usuário genérico não encontrado"));
+		}
+
+		Order order = new Order();
+		order.setMoment(dto.getMoment());
+		order.setOrderStatus(dto.getOrderStatus());
+		order.setUser(user);
+
+		return order;
 
 	}
-
-
 
 }

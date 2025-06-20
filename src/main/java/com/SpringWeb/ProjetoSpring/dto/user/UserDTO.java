@@ -28,7 +28,12 @@ public class UserDTO {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.email = entity.getEmail();
+
+		// Verifica se o usuário possui pedidos associados
 		if (entity.getOrders() != null) {
+			// Converte a lista de entidades Order para uma lista de OrderSimpleDTO
+			// Utiliza stream para mapear cada Order em um OrderSimpleDTO,
+			// coletando o resultado em uma nova lista
 			this.orders = entity.getOrders().stream().map(OrderSimpleDTO::new).collect(Collectors.toList());
 		}
 

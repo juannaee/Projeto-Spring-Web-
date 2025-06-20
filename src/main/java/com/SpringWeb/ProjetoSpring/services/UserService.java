@@ -83,7 +83,7 @@ public class UserService implements UserDetailsService {
 		User user = new User(null, dto.getName(), dto.getEmail(), dto.getPhone(), dto.getPassword());
 		if (dto.getOrders() != null) {
 			dto.getOrders().forEach(orderDto -> {
-				Order order = new Order(null, orderDto.getMoment(), user);
+				Order order = new Order(null, orderDto.getMoment(), user, orderDto.getOrderStatus());
 				user.getOrders().add(order);
 			});
 

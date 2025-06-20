@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.SpringWeb.ProjetoSpring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,25 +34,19 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	@JsonBackReference
 	private User user;
+	@Column(name = "order_status")
+	private Integer orderStatus;
 
 	public Order() {
 
 	}
 
-	public Order(Long id, Instant moment, User user) {
+	public Order(Long id, Instant moment, User user,OrderStatus orderStatus) {
 		super();
 		this.user = user;
 		this.id = id;
 		this.moment = moment;
-	}
-
-	public User getUser() {
-		return user;
-
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+		setOrderStatus(orderStatus);
 	}
 
 	public Long getId() {
@@ -67,6 +63,25 @@ public class Order implements Serializable {
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}
+
+	public User getUser() {
+		return user;
+
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 	}
 
 	@Override

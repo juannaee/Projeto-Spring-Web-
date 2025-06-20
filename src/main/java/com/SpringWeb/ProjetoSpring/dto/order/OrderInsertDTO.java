@@ -3,12 +3,14 @@ package com.SpringWeb.ProjetoSpring.dto.order;
 import java.time.Instant;
 
 import com.SpringWeb.ProjetoSpring.entities.User;
+import com.SpringWeb.ProjetoSpring.entities.enums.OrderStatus;
 
 public class OrderInsertDTO {
 
 	private Long id;
 	private Instant moment;
 	private User user;
+	private OrderStatus orderStatus;
 
 	public OrderInsertDTO() {
 
@@ -37,5 +39,15 @@ public class OrderInsertDTO {
 	public void setMoment(Instant moment) {
 		this.moment = moment;
 	}
+
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	
+	
 
 }
