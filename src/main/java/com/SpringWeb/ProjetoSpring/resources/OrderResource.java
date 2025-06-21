@@ -16,6 +16,8 @@ import com.SpringWeb.ProjetoSpring.dto.order.OrderInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.services.OrderService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/orders")
 public class OrderResource {
@@ -41,7 +43,7 @@ public class OrderResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<OrderDTO> insertOrder(@RequestBody OrderInsertDTO orderInsertDTO) {
+	public ResponseEntity<OrderDTO> insertOrder(@RequestBody @Valid OrderInsertDTO orderInsertDTO) {
 
 		Order order = orderService.fromDTO(orderInsertDTO);
 		Order createdOrder = orderService.insertOrder(order);

@@ -5,13 +5,14 @@ import java.time.Instant;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.entities.enums.OrderStatus;
 
-
+import jakarta.validation.constraints.NotNull;
 
 public class OrderInsertDTO {
 
 	private Long id;
-	private Instant moment;
+	private Instant moment = Instant.now();
 	private User user;
+	@NotNull(message = "O status do pedido é obrigatório")
 	private OrderStatus orderStatus;
 
 	public OrderInsertDTO() {
@@ -49,7 +50,5 @@ public class OrderInsertDTO {
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-	
-	
 
 }
