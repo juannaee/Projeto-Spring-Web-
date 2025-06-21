@@ -5,11 +5,14 @@ import java.time.Instant;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.entities.enums.OrderStatus;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class OrderInsertDTO {
 
 	private Long id;
 	private Instant moment;
 	private User user;
+	@Schema(description = "Status do pedido. Aceita: PAID, WAITING_PAYMENT, SHIPPED, DELIVERED, CANCELED", example = "PAID")
 	private OrderStatus orderStatus;
 
 	public OrderInsertDTO() {

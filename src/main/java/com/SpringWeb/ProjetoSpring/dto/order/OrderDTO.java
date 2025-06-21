@@ -13,7 +13,7 @@ public class OrderDTO {
 	private Long id;
 	private Instant moment;
 	private UserSimpleDTO user;
-	
+	@Schema(description = "Status do pedido. Aceita: PAID, WAITING_PAYMENT, SHIPPED, DELIVERED, CANCELED", example = "PAID")
 	private OrderStatus orderStatus;
 	private String orderStatusDescription;
 
