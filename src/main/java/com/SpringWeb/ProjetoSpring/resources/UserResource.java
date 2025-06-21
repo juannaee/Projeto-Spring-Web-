@@ -16,6 +16,8 @@ import com.SpringWeb.ProjetoSpring.dto.user.UserInsertDTO;
 import com.SpringWeb.ProjetoSpring.entities.User;
 import com.SpringWeb.ProjetoSpring.services.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
@@ -42,7 +44,7 @@ public class UserResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserDTO> insertUser(@RequestBody UserInsertDTO userInsertDTO) {
+	public ResponseEntity<UserDTO> insertUser(@RequestBody @Valid UserInsertDTO userInsertDTO) {
 		User user = userService.fromDTO(userInsertDTO);
 		User createdUser = userService.insertUser(user);
 		return ResponseEntity.ok(new UserDTO(createdUser));
