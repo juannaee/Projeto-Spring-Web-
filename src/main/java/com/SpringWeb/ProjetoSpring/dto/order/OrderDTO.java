@@ -12,6 +12,7 @@ public class OrderDTO {
 	private Instant moment;
 	private UserSimpleDTO user;
 	private OrderStatus orderStatus;
+	private String orderStatusDescription;
 
 	public OrderDTO() {
 
@@ -23,7 +24,12 @@ public class OrderDTO {
 		if (entity.getUser() != null) {
 			this.user = new UserSimpleDTO(entity.getUser());
 		}
-		this.orderStatus = entity.getOrderStatus();
+
+		if (entity.getOrderStatus() != null) {
+			this.orderStatus = entity.getOrderStatus();
+			this.orderStatusDescription = entity.getOrderStatus().getDescription();
+
+		}
 
 	}
 
@@ -57,6 +63,14 @@ public class OrderDTO {
 
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	public String getOrderStatusDescription() {
+		return orderStatusDescription;
+	}
+
+	public void setOrderStatusDescription(String orderStatusDescription) {
+		this.orderStatusDescription = orderStatusDescription;
 	}
 
 }
