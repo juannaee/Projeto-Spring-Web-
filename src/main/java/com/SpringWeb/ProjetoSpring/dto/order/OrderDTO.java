@@ -6,14 +6,12 @@ import com.SpringWeb.ProjetoSpring.dto.user.UserSimpleDTO;
 import com.SpringWeb.ProjetoSpring.entities.Order;
 import com.SpringWeb.ProjetoSpring.entities.enums.OrderStatus;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 
 public class OrderDTO {
 
 	private Long id;
 	private Instant moment;
 	private UserSimpleDTO user;
-	@Schema(description = "Status do pedido. Aceita: PAID, WAITING_PAYMENT, SHIPPED, DELIVERED, CANCELED", example = "PAID")
 	private OrderStatus orderStatus;
 	private String orderStatusDescription;
 

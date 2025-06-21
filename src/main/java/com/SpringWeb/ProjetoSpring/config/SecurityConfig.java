@@ -41,17 +41,14 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**").disable())
-			.headers(headers -> headers.disable()) 
-			.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/h2-console/**", "/login", "/public/**").permitAll()
-				.requestMatchers(HttpMethod.POST, "/users","/users/**").permitAll()
-				.requestMatchers(HttpMethod.GET, "/users").permitAll()
-				.anyRequest().authenticated()
-			)
-			.formLogin(form -> form.loginPage("/login").permitAll())
-			.httpBasic(withDefaults());
+				.headers(headers -> headers.disable())
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/h2-console/**", "/login", "/public/**", "/swagger-ui/**", "/v3/api-docs/**",
+								"/swagger-ui.html", "/swagger-resources/**", "/webjars/**")
+						.permitAll().requestMatchers(HttpMethod.POST, "/users", "/users/**").permitAll()
+						.requestMatchers(HttpMethod.GET, "/users").permitAll().anyRequest().authenticated())
+				.formLogin(form -> form.loginPage("/login").permitAll()).httpBasic(withDefaults());
 
 		return http.build();
 	}
-
 }
